@@ -1,29 +1,56 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Список пицц{% endblock %}
 
 {% block content %}
-  <h2>Меню пиццы</h2>
+<div class="animate-fade">
+    <div class="flex justify-between items-center mb-6">
+        <h2>Меню пиццы</h2>
+        {% if user.is_authenticated %}
+            {% if user.is_admin or user.is_manager %}
+                <a href="{% url 'add_pizza' %}" class="btn btn-primary">Добавить пиццу</a>
+            {% endif %}
+        {% endif %}
+      
+    </div>
 
-  <form method="get">
-    <label>Название:</label>
-    {{ form.name }}
-    <label>Цена от:</label>
-    {{ form.min_price }}
-    <label>Цена до:</label>
-    {{ form.max_price }}
-    <button type="submit">Поиск</button>
-  </form>
+    <form method="get" class="filter-container mb-6">
+        <div class="filter-group">
+            <label class="filter-label">Название:</label>
+            {{ form.name }}
+        </div>
+        <div class="filter-group">
+            <label class="filter-label">Цена от:</label>
+            {{ form.min_price }}
+        </div>
+        <div class="filter-group">
+            <label class="filter-label">Цена до:</label>
+            {{ form.max_price }}
+        </div>
+        <button type="submit" class="btn btn-primary align-self-end">Поиск</button>
+    </form>
 
-  <hr>
-
-  <ul>
-    {% for pizza in pizzas %}
-      <li>
-        <a href="{% url 'pizza_detail' pizza.pk %}">{{ pizza.name }}</a> — {{ pizza.price }} ₸
-      </li>
-    {% empty %}
-      <li>Ничего не найдено.</li>
-    {% endfor %}
-  </ul>
+    <div class="pizza-grid">
+        {% for pizza in pizzas %}
+        <div class="pizza-card animate-fade">
+            {% if pizza.image %}
+                <img src="{{ pizza.image.url }}" alt="{{ pizza.name }}" class="pizza-img">
+            {% else %}
+                <img src="{% static 'default_pizza.jpg' %}" alt="Нет изображения" class="pizza-img">
+            {% endif %}
+            <div class="pizza-body">
+                <h3 class="pizza-title">{{ pizza.name }}</h3>
+                <p class="pizza-description">{{ pizza.description|truncatechars:100 }}</p>
+            </div>
+            <div class="pizza-footer">
+                <span class="pizza-price">{{ pizza.price }} ₸</span>
+                <a href="{% url 'pizza_detail' pizza.pk %}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-4">Ничего не найдено.</div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

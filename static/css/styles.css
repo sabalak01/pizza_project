@@ -1,23 +1,548 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #fafafa;
+/* Общие стили с новой цветовой палитрой */
+:root {
+    --primary-color: #FF7B54;
+    --primary-light: #FFB26B;
+    --primary-dark: #D94C1A;
+    --secondary-color: #939B62;
+    --background: #F7F7F7;
+    --card-bg: #FFFFFF;
+    --text-color: #333333;
+    --text-light: #777777;
+    --border-color: #E0E0E0;
+    --success-color: #4CAF50;
+    --warning-color: #FF9800;
+    --error-color: #F44336;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--background);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
-}
-
-header {
-    background-color: #ff5733;
+    line-height: 1.6;
+  }
+  
+  /* Современный хедер с плавной анимацией */
+  header {
+    background-color: var(--primary-color);
     color: white;
-    padding: 1rem;
-}
-
-a {
+    padding: 1rem 0;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 0.3s ease;
+  }
+  
+  header.scrolled {
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  
+  header h1 a {
     color: white;
-    margin-right: 15px;
     text-decoration: none;
-    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  nav {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  nav a {
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  nav a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+  
+  nav a:hover::after {
+    width: 70%;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Типография */
+  h1, h2, h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  a:hover {
+    color: var(--primary-dark);
+  }
+  
+  /* Современные кнопки */
+  button, .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  button:hover, .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  button:active, .btn:active {
+    transform: translateY(0);
+  }
+  
+  button.btn-primary, .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  button.btn-primary:hover, .btn-primary:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  button.btn-secondary, .btn-secondary {
+    background-color: white;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+  }
+  
+  button.btn-secondary:hover, .btn-secondary:hover {
+    background-color: #f5f5f5;
+  }
+  
+  button.btn-success, .btn-success {
+    background-color: var(--success-color);
+    color: white;
+  }
+  
+  button.btn-success:hover, .btn-success:hover {
+    background-color: #3d8b40;
+  }
+  
+  button.btn-danger, .btn-danger {
+    background-color: var(--error-color);
+    color: white;
+  }
+  
+  button.btn-danger:hover, .btn-danger:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Формы с современным дизайном */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-label {
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .form-control {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+  }
+  
+  .form-control:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 123, 84, 0.2);
+    background-color: white;
+  }
+  
+  .form-text {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Стили для таблицы заказов */
+  .table-responsive {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  
+  .order-table thead {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .order-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+  }
+  
+  .order-table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+  }
+  
+  .order-table tbody tr:last-child {
+    border-bottom: none;
+  }
+  
+  .order-table tbody tr:hover {
+    background-color: rgba(255, 123, 84, 0.05);
+  }
+  
+  .order-table td {
+    padding: 1rem;
+    vertical-align: middle;
+  }
+  
+  .order-table .status-pending {
+    color: var(--warning-color);
+    font-weight: 500;
+  }
+  
+  .order-table .status-completed {
+    color: var(--success-color);
+    font-weight: 500;
+  }
+  
+  .order-table .status-cancelled {
+    color: var(--error-color);
+    font-weight: 500;
+  }
+  
+  /* Фильтры */
+  .filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    align-items: flex-end;
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+  }
+  
+  .filter-label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .filter-select {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: white;
+  }
+  
+  /* Карточки пицц */
+  .pizza-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .pizza-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .pizza-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+  
+  .pizza-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .pizza-body {
+    padding: 1.5rem;
+  }
+  
+  .pizza-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary-dark);
+  }
+  
+  .pizza-description {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .pizza-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem 1.5rem;
+  }
+  
+  .pizza-price {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+  }
+  
+  /* Футер */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    background-color: white;
+    margin-top: 3rem;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+    
+    header h1 {
+      font-size: 1.5rem;
+    }
+    
+    nav {
+      gap: 0.5rem;
+    }
+    
+    .pizza-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .filter-container {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .filter-group {
+      min-width: 100%;
+    }
+    
+    .order-table {
+      font-size: 0.85rem;
+    }
+    
+    .order-table th, 
+    .order-table td {
+      padding: 0.75rem;
+    }
+  }
+  
+  /* Анимации */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-fade {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  
+  /* Дополнительные утилиты */
+  .text-center {
+    text-align: center;
+  }
+  
+  .mt-3 {
+    margin-top: 1.5rem;
+  }
+  
+  .mb-3 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .py-3 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Стили для user-info */
+  .user-info {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+  }
+  
+  .user-info li {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .user-info li:last-child {
+    border-bottom: none;
+  }
+  
+  .user-info .label {
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .user-info .value {
+    color: var(--text-light);
+  }
+  
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* Toast уведомления */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .toast-success {
+    background-color: var(--success-color);
+  }
+  
+  .toast-error {
+    background-color: var(--error-color);
+  }
+  
+  .toast-icon {
+    font-size: 1.25rem;
+  }
+
+  .pizza-image {
+    max-width: 300px;
+    max-height: 300px;
+    overflow: hidden;
 }
 
-a:hover {
-    text-decoration: underline;
+.pizza-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
 }

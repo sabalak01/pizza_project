@@ -13,12 +13,13 @@ def create_order(request):
 
         if order_form.is_valid() and order_item_form.is_valid():
             order = order_form.save(commit=False)
-            order.user = request.user  # Пользователь, который создает заказ
+            order.user = request.user
+            order.status = 'Ожидает обработки'  # Проставляем статус вручную
             order.save()
 
             order_item = order_item_form.save(commit=False)
             order_item.order = order
-            order_item.price = order_item.pizza.price  # Устанавливаем цену пиццы
+            order_item.price = order_item.pizza.price
             order_item.save()
 
             total_price = sum(item.get_total_price() for item in order.items.all())
@@ -38,7 +39,7 @@ def create_order(request):
 
 
 
-# Проверка, является ли пользователь администратором или менеджером
+
 def is_admin_or_manager(user):
     return user.is_admin() or user.is_manager()
 

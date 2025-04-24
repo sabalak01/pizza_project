@@ -1,10 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация{% endblock %}
 
-  <h2>Регистрация</h2>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-  </form>
-
-  <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
-
+{% block content %}
+<div class="container animate-fade">
+    <h2>Регистрация</h2>
+    <form method="POST" class="form">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+                <small class="form-text">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary mt-3">Зарегистрироваться</button>
+    </form>
+    <p class="mt-3 text-center">Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+</div>
+{% endblock %}

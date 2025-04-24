@@ -7,12 +7,17 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError("Email обязателен")
         email = self.normalize_email(email)
-        extra_fields.setdefault('role', CustomUser.Role.CLIENT)  # Клиент по умолчанию
+        extra_fields.setdefault('role', CustomUser.Role.CLIENT)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
-        user.is_active = False  # Активируем только после подтверждения email
+
+        
+        if 'is_active' not in extra_fields:
+            user.is_active = False
+
         user.save()
         return user
+
 
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -20,6 +25,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('role', CustomUser.Role.ADMIN)
         user = self.create_user(email, password, **extra_fields)
         user.is_active = True
+        user.save()  
         return user
 
 

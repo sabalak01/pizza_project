@@ -7,12 +7,12 @@ from .models import Order
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['address', 'status']
+        fields = ['address']  
 
         widgets = {
             'address': forms.Textarea(attrs={'placeholder': 'Укажите адрес доставки'}),
-            'status': forms.Select(choices=Order.STATUS_CHOICES),
         }
+
         
 class OrderItemForm(forms.ModelForm):
     class Meta:

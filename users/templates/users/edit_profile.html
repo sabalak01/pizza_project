@@ -1,12 +1,25 @@
-  <div class="container mt-5">
+{% extends 'base.html' %}
+{% block title %}Редактировать профиль{% endblock %}
+
+{% block content %}
+<div class="container animate-fade">
     <h2>Редактировать профиль</h2>
-    
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    <form method="post" class="form">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div class="button-group mt-3">
+            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+            <a href="{% url 'profile' %}" class="btn btn-secondary">Назад</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger">Выйти</a>
+        </div>
     </form>
-
-    <a href="{% url 'logout' %}" class="btn btn-secondary mt-3">Выйти</a>
-  </div>
-
+</div>
+{% endblock %}

@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
+{% block title %}Добавить пиццу{% endblock %}
 
 {% block content %}
-  <h2>Добавить пиццу</h2>
-
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Сохранить</button>
-  </form>
-
+<div class="container animate-fade">
+    <h2>Добавить пиццу</h2>
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div class="button-group mt-3">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'pizza_list' %}" class="btn btn-secondary">Отмена</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

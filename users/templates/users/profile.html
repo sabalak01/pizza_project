@@ -1,15 +1,32 @@
-<div class="container mt-5">
-  <h2>Профиль пользователя</h2>
-  <ul class="list-group">
-    <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
-    <li class="list-group-item"><strong>Телефон:</strong> {{ user.phone|default:"—" }}</li>
-    <li class="list-group-item"><strong>Роль:</strong> {{ user.get_role_display }}</li>
-    <li class="list-group-item"><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y H:i" }}</li>
-  </ul>
+{% extends "base.html" %}
+{% block title %}Профиль пользователя{% endblock %}
 
-  <a href="{% url '' %}" class="btn btn-outline-secondary mt-2">Мои заказы</a>
-
+{% block content %}
+<div class="container animate-fade">
+    <h2>Профиль пользователя</h2>
+    <ul class="user-info">
+        <li>
+            <span class="label">Email:</span>
+            <span class="value">{{ user.email }}</span>
+        </li>
+        <li>
+            <span class="label">Телефон:</span>
+            <span class="value">{{ user.phone|default:"—" }}</span>
+        </li>
+        <li>
+            <span class="label">Роль:</span>
+            <span class="value">{{ user.get_role_display }}</span>
+        </li>
+        <li>
+            <span class="label">Дата регистрации:</span>
+            <span class="value">{{ user.date_joined|date:"d.m.Y H:i" }}</span>
+        </li>
+    </ul>
   
-  <a href="{% url 'edit_profile' %}" class="btn btn-primary mt-3">Редактировать профиль</a>
+    <div class="button-group">
+        <a href="{% url 'order_list' %}" class="btn btn-secondary">Мои заказы</a>
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Редактировать профиль</a>
+        <a href="{% url 'pizza_list' %}" class="btn btn-primary">Назад</a>
+    </div>
 </div>
-
+{% endblock %}

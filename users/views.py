@@ -83,7 +83,7 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 messages.success(request, _('Вы успешно вошли в систему.'))
-                return redirect('product_list')
+                return redirect('pizza_list')
             else:
                 messages.error(request, _('Ваш аккаунт не активирован. Пожалуйста, проверьте вашу почту для активации.'))
         else:
@@ -121,4 +121,4 @@ def profile(request):
 def user_logout(request):
     logout(request)
     messages.info(request, _('Вы вышли из системы.'))
-    return redirect('product_list')
+    return redirect('pizza_list')
