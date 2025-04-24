@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Создать заказ</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <h3>Данные заказа</h3>
+      {{ order_form.as_p }}
+    </div>
+
+    <div class="form-group">
+      <h3>Добавить пиццу</h3>
+      {{ order_item_form.as_p }}
+    </div>
+
+    <button type="submit">Создать заказ</button>
+  </form>
+{% endblock %}

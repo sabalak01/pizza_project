@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <h2>Профиль пользователя</h2>
+  <ul class="list-group">
+    <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+    <li class="list-group-item"><strong>Телефон:</strong> {{ user.phone|default:"—" }}</li>
+    <li class="list-group-item"><strong>Роль:</strong> {{ user.get_role_display }}</li>
+    <li class="list-group-item"><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y H:i" }}</li>
+  </ul>
+
+  <a href="{% url '' %}" class="btn btn-outline-secondary mt-2">Мои заказы</a>
+
+  
+  <a href="{% url 'edit_profile' %}" class="btn btn-primary mt-3">Редактировать профиль</a>
+</div>
+

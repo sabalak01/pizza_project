@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Список пицц{% endblock %}
+
+{% block content %}
+  <h2>Меню пиццы</h2>
+
+  <form method="get">
+    <label>Название:</label>
+    {{ form.name }}
+    <label>Цена от:</label>
+    {{ form.min_price }}
+    <label>Цена до:</label>
+    {{ form.max_price }}
+    <button type="submit">Поиск</button>
+  </form>
+
+  <hr>
+
+  <ul>
+    {% for pizza in pizzas %}
+      <li>
+        <a href="{% url 'pizza_detail' pizza.pk %}">{{ pizza.name }}</a> — {{ pizza.price }} ₸
+      </li>
+    {% empty %}
+      <li>Ничего не найдено.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

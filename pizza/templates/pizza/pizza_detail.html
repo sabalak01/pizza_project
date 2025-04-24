@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="pizza-detail-container">
+    <h1>{{ pizza.name }}</h1>
+    
+    <div class="pizza-image">
+      <img src="{{ pizza.image.url }}" alt="{{ pizza.name }}">
+    </div>
+
+    <div class="pizza-description">
+      <p><strong>Описание:</strong> {{ pizza.description }}</p>
+    </div>
+
+    <div class="pizza-price">
+      <p><strong>Цена:</strong> {{ pizza.price }} ₽</p>
+    </div>т 
+
+    <div class="add-to-order">
+      <form action="{% url 'add_to_order' pizza.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Добавить в заказ</button>
+      </form>
+    </div>
+  </div>
+
+  <style>
+    .pizza-detail-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .pizza-image img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .pizza-description, .pizza-price {
+      margin-top: 20px;
+    }
+
+    .add-to-order {
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff5722;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background-color: #e64a19;
+    }
+  </style>
+{% endblock %}
